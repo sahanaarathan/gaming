@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Gaming Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: repeating-linear-gradient(
+                135deg,
+                #232526,
+                #232526 40px,
+                #414345 40px,
+                #414345 80px
+            ), radial-gradient(circle at 60% 40%, rgba(76,175,80,0.12) 0, rgba(76,175,80,0.12) 200px, transparent 300px),
+            radial-gradient(circle at 20% 80%, rgba(33,150,243,0.10) 0, rgba(33,150,243,0.10) 180px, transparent 300px),
+            #181818;
+            color: #fff;
+            text-align: center;
+            min-height: 100vh;
+        }
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #181818; 
+            color: #fff; 
+            text-align: center;
+         }
+        h1 { 
+            margin-top: 30px;
+         }
+        .games-list { 
+            margin: 40px auto; 
+            display: flex; 
+            justify-content: center; 
+            gap: 40px;
+         }
+        .game-card { 
+            background: #222; 
+            padding: 20px; 
+            border-radius: 10px; 
+            width: 250px;
+         }
+        button { 
+            padding: 10px 20px; 
+            margin-top: 10px; 
+            border: none; 
+            border-radius: 5px; 
+            background: #4caf50; 
+            color: #fff; 
+            cursor: pointer;
+         }
+        button:hover { 
+            background: #388e3c;
+         }
+        .game-area { 
+            margin-top: 40px;
+         }
+        input[type="number"], input[type="text"] { 
+            padding: 5px; 
+            border-radius: 5px; 
+            border: none;
+         }
+    </style>
+</head>
+<body>
+    <h1 style="text-shadow: 2px 4px 12px #000, 0 2px 0 #4caf50;">Mini Gaming Website</h1>
+    <div class="games-list" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; max-width: 1100px;">
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2 style="text-shadow: 1px 2px 8px #000, 0 1px 0 #2196f3;">Guess the Number</h2>
+            <p>Try to guess the number between 1 and 100!</p>
+            <button onclick="showGame('guess')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2 style="text-shadow: 1px 2px 8px #000, 0 1px 0 #4caf50;">Tic Tac Toe</h2>
+            <p>Play classic Tic Tac Toe against a friend!</p>
+            <button onclick="showGame('tictactoe')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>Rock Paper Scissors</h2>
+            <p>Play Rock Paper Scissors against the computer!</p>
+            <button onclick="showGame('rps')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>Memory Match</h2>
+            <p>Flip cards and match pairs!</p>
+            <button onclick="showGame('memory')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>Coin Toss</h2>
+            <p>Guess heads or tails!</p>
+            <button onclick="showGame('cointoss')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>Math Quiz</h2>
+            <p>Answer random math questions!</p>
+            <button onclick="showGame('mathquiz')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>Word Scramble</h2>
+            <p>Unscramble the word!</p>
+            <button onclick="showGame('scramble')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>Reaction Time</h2>
+            <p>Test your reaction speed!</p>
+            <button onclick="showGame('reaction')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>Color Guess</h2>
+            <p>Guess the hidden color code!</p>
+            <button onclick="showGame('colorguess')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>Hangman</h2>
+            <p>Guess the word before you run out of tries!</p>
+            <button onclick="showGame('hangman')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>2048</h2>
+            <p>Join the numbers to reach 2048!</p>
+            <button onclick="showGame('game2048')">Play</button>
+        </div>
+        <div class="game-card three-d" style="flex: 1 1 250px; min-width: 250px; max-width: 250px;">
+            <h2>Snake</h2>
+            <p>Eat food and grow your snake!</p>
+            <button onclick="showGame('snake')">Play</button>
+        </div>
+    </div>
+    <div class="game-area" id="gameArea" style="filter: drop-shadow(0 8px 24px #0008);"></div>
+
+    <!-- Decorative SVG background pattern -->
+    <svg style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;opacity:0.16;" width="100%" height="100%">
+        <defs>
+            <g id="console"></g>
+                <rect x="12" y="24" width="56" height="32" rx="8" fill="#232526" stroke="#4caf50" stroke-width="2"/>
+                <rect x="24" y="32" width="32" height="16" rx="3" fill="#181818" stroke="#2196f3" stroke-width="1.5"/>
+                <rect x="16" y="44" width="6" height="2" rx="1" fill="#fff" opacity="0.7"/>
+                <rect x="18" y="42" width="2" height="6" rx="1" fill="#fff" opacity="0.7"/>
+                <circle cx="52" cy="48" r="2" fill="#f44336" opacity="0.8"/>
+                <circle cx="58" cy="48" r="2" fill="#ffeb3b" opacity="0.8"/>
+            </g>
+            <pattern id="gaming-console-pattern" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+                <use href="#console" x="0" y="0"/>
+                <use href="#console" x="40" y="40" opacity="0.5"/>
+            </pattern>
+            <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <circle cx="10" cy="10" r="2" fill="#fff" opacity="0.10"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#gaming-console-pattern)" />
+        <rect width="100%" height="100%" fill="url(#dots)" />
+    </svg>
+
+    <style>
+        .games-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+        .game-card.three-d {
+            background: linear-gradient(145deg, #232526 60%, #181818 100%);
+            padding: 20px;
+            border-radius: 16px;
+            width: 250px;
+            box-shadow:
+                0 8px 24px #111a,
+                0 2px 8px #4caf5040,
+                0 1.5px 0 #4caf50 inset,
+                0 0.5px 0 #fff2 inset;
+            border: 1.5px solid #333;
+            transform: perspective(600px) rotateY(-8deg) scale(1) translateY(0);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            flex: 1 1 250px;
+            min-width: 250px;
+            max-width: 250px;
+        }
+        .game-card.three-d:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 38%;
+            background: linear-gradient(120deg, #4caf5022 0%, #2196f322 100%);
+            z-index: 0;
+            border-radius: 16px 16px 60% 60%/16px 16px 40% 40%;
+        }
+        .game-card.three-d > * {
+            position: relative;
+            z-index: 1;
+        }
+        .game-card.three-d:nth-child(even) {
+            transform: perspective(600px) rotateY(8deg) scale(1) translateY(0);
+        }
+        .game-card.three-d:hover {
+            transform: perspective(600px) rotateY(0deg) scale(1.08) translateY(-8px);
+            box-shadow:
+                0 16px 48px #222c,
+                0 4px 16px #4caf5080,
+                0 0 0 4px #4caf5022;
+            z-index: 2;
+        }
+        .game-card.three-d:after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0; left: 0; right: 0; height: 18px;
+            background: linear-gradient(0deg, #0006 0%, transparent 100%);
+            border-radius: 0 0 16px 16px;
+            z-index: 0;
+        }
+    </style>
+
+    <script>
+        // Helper to clear and focus the game area
+        function clearGameArea() {
+            document.getElementById('gameArea').innerHTML = '';
+        }
+
+        // GUESS THE NUMBER
+        let guessNumber, guessTries;
+        function showGuessGame() {
+            clearGameArea();
+            guessNumber = Math.floor(Math.random() * 100) + 1;
+            guessTries = 0;
+            document.getElementById('gameArea').innerHTML = `
+                <h2>Guess the Number</h2>
+                <p>I'm thinking of a number between 1 and 100.</p>
+                <input id="guessInput" type="number" min="1" max="100" />
+                <button onclick="makeGuess()">Guess</button>
+                <p id="guessMsg"></p>
+                <button onclick="showGame('guess')">Restart</button>
+            `;
+        }
+        function makeGuess() {
+            const val = Number(document.getElementById('guessInput').value);
+            guessTries++;
+            let msg = '';
+            if (val === guessNumber) {
+                msg = `🎉 Correct! You guessed it in ${guessTries} tries.`;
+            } else if (val < guessNumber) {
+                msg = 'Too low!';
+            } else if (val > guessNumber) {
+                msg = 'Too high!';
+            } else {
+                msg = 'Enter a valid number!';
+            }
+            document.getElementById('guessMsg').textContent = msg;
+        }
+
+        // TIC TAC TOE
+        let tttBoard, tttTurn, tttOver;
+        function showTicTacToe() {
+            clearGameArea();
+            tttBoard = Array(9).fill('');
+            tttTurn = 'X';
+            tttOver = false;
+            renderTicTacToe();
+        }
+        function renderTicTacToe() {
+            let html = `<h2>Tic Tac Toe</h2>
+                <div style="display:grid;grid-template-columns:repeat(3,60px);gap:8px;justify-content:center;margin:20px auto;">`;
+            for (let i = 0; i < 9; i++) {
+                html += `<button style="width:60px;height:60px;font-size:2em;" onclick="tttMove(${i})" ${tttBoard[i] || tttOver ? 'disabled' : ''}>${tttBoard[i]}</button>`;
+            }
+            html += `</div>
+                <p id="tttMsg">${tttOver ? '' : 'Turn: ' + tttTurn}</p>
+                <button onclick="showGame('tictactoe')">Restart</button>`;
+            document.getElementById('gameArea').innerHTML = html;
+        }
+        function tttMove(i) {
+            if (tttBoard[i] || tttOver) return;
+            tttBoard[i] = tttTurn;
+            if (tttWin(tttTurn)) {
+                tttOver = true;
+                document.getElementById('tttMsg').textContent = `${tttTurn} wins!`;
+            } else if (tttBoard.every(x => x)) {
+                tttOver = true;
+                document.getElementById('tttMsg').textContent = `Draw!`;
+            } else {
+                tttTurn = tttTurn === 'X' ? 'O' : 'X';
+                renderTicTacToe();
+            }
+        }
+        function tttWin(p) {
+            const w = [
+                [0,1,2],[3,4,5],[6,7,8],
+                [0,3,6],[1,4,7],[2,5,8],
+                [0,4,8],[2,4,6]
+            ];
+            return w.some(line => line.every(i => tttBoard[i] === p));
+        }
+
+        // ROCK PAPER SCISSORS
+        function showRPS() {
+            clearGameArea();
+            document.getElementById('gameArea').innerHTML = `
+                <h2>Rock Paper Scissors</h2>
+                <button onclick="playRPS('Rock')">Rock</button>
+                <button onclick="playRPS('Paper')">Paper</button>
+                <button onclick="playRPS('Scissors')">Scissors</button>
+                <p id="rpsMsg"></p>
+                <button onclick="showGame('rps')">Restart</button>
+            `;
+        }
+        function playRPS(user) {
+            const choices = ['Rock','Paper','Scissors'];
+            const comp = choices[Math.floor(Math.random()*3)];
+            let result = '';
+            if (user === comp) result = "It's a draw!";
+            else if (
+                (user === 'Rock' && comp === 'Scissors') ||
+                (user === 'Paper' && comp === 'Rock') ||
+                (user === 'Scissors' && comp === 'Paper')
+            ) result = `You win! Computer chose ${comp}.`;
+            else result = `You lose! Computer chose ${comp}.`;
+            document.getElementById('rpsMsg').textContent = result;
+        }
+
+        // MEMORY MATCH
+        let memoryCards, memoryFlipped, memoryMatched, memoryLock;
+        function showMemory() {
+            clearGameArea();
+            const icons = ['🍎','🍌','🍇','🍒','🍋','🍉'];
+            memoryCards = [...icons, ...icons].sort(() => Math.random() - 0.5);
+            memoryFlipped = [];
+            memoryMatched = [];
+            memoryLock = false;
+            renderMemory();
+        }
+        function renderMemory() {
+            let html = `<h2>Memory Match</h2>
+                <div style="display:grid;grid-template-columns:repeat(4,50px);gap:10px;justify-content:center;">`;
+            for (let i = 0; i < 12; i++) {
+                let show = memoryMatched.includes(i) || memoryFlipped.includes(i);
+                html += `<button style="width:50px;height:50px;font-size:2em;" onclick="flipMemory(${i})" ${show || memoryLock ? 'disabled' : ''}>${show ? memoryCards[i] : '❓'}</button>`;
+            }
+            html += `</div>
+                <p id="memoryMsg">${memoryMatched.length === 12 ? 'You matched all pairs! 🎉' : ''}</p>
+                <button onclick="showGame('memory')">Restart</button>`;
+            document.getElementById('gameArea').innerHTML = html;
+        }
+        function flipMemory(i) {
+            if (memoryFlipped.length === 2 || memoryMatched.includes(i) || memoryFlipped.includes(i)) return;
+            memoryFlipped.push(i);
+            renderMemory();
+            if (memoryFlipped.length === 2) {
+                memoryLock = true;
+                setTimeout(() => {
+                    if (memoryCards[memoryFlipped[0]] === memoryCards[memoryFlipped[1]]) {
+                        memoryMatched.push(...memoryFlipped);
+                    }
+                    memoryFlipped = [];
+                    memoryLock = false;
+                    renderMemory();
+                }, 800);
+            }
+        }
+
+        // COIN TOSS
+        function showCoinToss() {
+            clearGameArea();
+            document.getElementById('gameArea').innerHTML = `
+                <h2>Coin Toss</h2>
+                <button onclick="tossCoin('Heads')">Heads</button>
+                <button onclick="tossCoin('Tails')">Tails</button>
+                <p id="coinMsg"></p>
+                <button onclick="showGame('cointoss')">Restart</button>
+            `;
+        }
+        function tossCoin(user) {
+            const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+            document.getElementById('coinMsg').textContent = user === result ? `You guessed right! It was ${result}.` : `Wrong! It was ${result}.`;
+        }
+
+        // MATH QUIZ
+        let mathA, mathB, mathOp, mathAns;
+        function showMathQuiz() {
+            clearGameArea();
+            newMathQuiz();
+        }
+        function newMathQuiz() {
+            const ops = ['+','-','×'];
+            mathA = Math.floor(Math.random()*20)+1;
+            mathB = Math.floor(Math.random()*20)+1;
+            mathOp = ops[Math.floor(Math.random()*ops.length)];
+            mathAns = mathOp === '+' ? mathA+mathB : mathOp === '-' ? mathA-mathB : mathA*mathB;
+            document.getElementById('gameArea').innerHTML = `
+                <h2>Math Quiz</h2>
+                <p>What is ${mathA} ${mathOp} ${mathB}?</p>
+                <input id="mathInput" type="number" />
+                <button onclick="checkMath()">Check</button>
+                <p id="mathMsg"></p>
+                <button onclick="newMathQuiz()">Next</button>
+                <button onclick="showGame('mathquiz')">Restart</button>
+            `;
+        }
+        function checkMath() {
+            const val = Number(document.getElementById('mathInput').value);
+            document.getElementById('mathMsg').textContent = val === mathAns ? 'Correct! 🎉' : 'Try again!';
+        }
+
+        // WORD SCRAMBLE
+        let scrambleWord, scrambleAnswer;
+        function showScramble() {
+            clearGameArea();
+            const words = ['banana','orange','gamer','puzzle','memory','python','javascript','coding','react','number'];
+            scrambleAnswer = words[Math.floor(Math.random()*words.length)];
+            scrambleWord = scrambleAnswer.split('').sort(() => Math.random()-0.5).join('');
+            document.getElementById('gameArea').innerHTML = `
+                <h2>Word Scramble</h2>
+                <p>Unscramble: <b>${scrambleWord}</b></p>
+                <input id="scrambleInput" type="text" />
+                <button onclick="checkScramble()">Check</button>
+                <p id="scrambleMsg"></p>
+                <button onclick="showGame('scramble')">Restart</button>
+            `;
+        }
+        function checkScramble() {
+            const val = document.getElementById('scrambleInput').value.trim().toLowerCase();
+            document.getElementById('scrambleMsg').textContent = val === scrambleAnswer ? 'Correct! 🎉' : 'Try again!';
+        }
+
+        // REACTION TIME
+        let reactionTimeout, reactionStart;
+        function showReaction() {
+            clearGameArea();
+            document.getElementById('gameArea').innerHTML = `
+                <h2>Reaction Time</h2>
+                <p id="reactionMsg">Click "Start" and wait for green...</p>
+                <button id="reactionBtn" onclick="startReaction()">Start</button>
+                <button onclick="showGame('reaction')">Restart</button>
+            `;
+        }
+        function startReaction() {
+            document.getElementById('reactionBtn').disabled = true;
+            document.getElementById('reactionMsg').textContent = 'Wait for green...';
+            reactionTimeout = setTimeout(() => {
+                reactionStart = Date.now();
+                document.getElementById('reactionBtn').style.background = '#4caf50';
+                document.getElementById('reactionBtn').textContent = 'CLICK!';
+                document.getElementById('reactionBtn').disabled = false;
+                document.getElementById('reactionBtn').onclick = stopReaction;
+            }, 1000 + Math.random()*2000);
+        }
+        function stopReaction() {
+            const time = Date.now() - reactionStart;
+            document.getElementById('reactionMsg').textContent = `Your reaction time: ${time} ms`;
+            document.getElementById('reactionBtn').disabled = true;
+        }
+
+        // COLOR GUESS
+        let colorCode;
+        function showColorGuess() {
+            clearGameArea();
+            colorCode = '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');
+            document.getElementById('gameArea').innerHTML = `
+                <h2>Color Guess</h2>
+                <div style="width:80px;height:80px;margin:10px auto;background:${colorCode};border-radius:8px;border:2px solid #fff;"></div>
+                <p>Guess the hex code (e.g. #12ab34):</p>
+                <input id="colorInput" type="text" maxlength="7" />
+                <button onclick="checkColorGuess()">Check</button>
+                <p id="colorMsg"></p>
+                <button onclick="showGame('colorguess')">Restart</button>
+            `;
+        }
+        function checkColorGuess() {
+            const val = document.getElementById('colorInput').value.trim().toLowerCase();
+            document.getElementById('colorMsg').textContent = val === colorCode ? 'Correct! 🎉' : `Nope! It was ${colorCode}`;
+        }
+
+        // HANGMAN
+        let hangmanWord, hangmanDisplay, hangmanTries, hangmanGuessed;
+        function showHangman() {
+            clearGameArea();
+            const words = ['javascript','python','memory','banana','hangman','puzzle','coding','number','gamer','orange'];
+            hangmanWord = words[Math.floor(Math.random()*words.length)];
+            hangmanDisplay = Array(hangmanWord.length).fill('_');
+            hangmanTries = 6;
+            hangmanGuessed = [];
+            renderHangman();
+        }
+        function renderHangman() {
+            let html = `<h2>Hangman</h2>
+                <p>${hangmanDisplay.join(' ')}</p>
+                <p>Tries left: ${hangmanTries}</p>
+                <input id="hangmanInput" type="text" maxlength="1" style="width:30px;text-align:center;" />
+                <button onclick="guessHangman()">Guess</button>
+                <p>Guessed: ${hangmanGuessed.join(', ')}</p>
+                <p id="hangmanMsg"></p>
+                <button onclick="showGame('hangman')">Restart</button>`;
+            document.getElementById('gameArea').innerHTML = html;
+        }
+        function guessHangman() {
+            const val = document.getElementById('hangmanInput').value.toLowerCase();
+            if (!val || hangmanGuessed.includes(val) || hangmanTries === 0) return;
+            hangmanGuessed.push(val);
+            let found = false;
+            for (let i = 0; i < hangmanWord.length; i++) {
+                if (hangmanWord[i] === val) {
+                    hangmanDisplay[i] = val;
+                    found = true;
+                }
+            }
+            if (!found) hangmanTries--;
+            if (hangmanDisplay.join('') === hangmanWord) {
+                document.getElementById('hangmanMsg').textContent = 'You win! 🎉';
+            } else if (hangmanTries === 0) {
+                document.getElementById('hangmanMsg').textContent = `Game over! The word was "${hangmanWord}".`;
+            }
+            renderHangman();
+        }
+
+        // 2048 (simple version)
+        let game2048Board, game2048Score;
+        function show2048() {
+            clearGameArea();
+            game2048Board = [
+                [0,0,0,0],
+                [0,0,0,0],
+                [0,0,0,0],
+                [0,0,0,0]
+            ];
+            game2048Score = 0;
+            add2048Tile();
+            add2048Tile();
+            render2048();
+            document.onkeydown = handle2048Key;
+        }
+        function add2048Tile() {
+            let empty = [];
+            for (let r=0;r<4;r++) for (let c=0;c<4;c++) if (!game2048Board[r][c]) empty.push([r,c]);
+            if (empty.length) {
+                let [r,c] = empty[Math.floor(Math.random()*empty.length)];
+                game2048Board[r][c] = Math.random()<0.9?2:4;
+            }
+        }
+        function render2048() {
+            let html = `<h2>2048</h2>
+                <p>Score: ${game2048Score}</p>
+                <div style="display:grid;grid-template-columns:repeat(4,50px);gap:5px;justify-content:center;">`;
+            for (let r=0;r<4;r++) for (let c=0;c<4;c++)
+                html += `<div style="width:50px;height:50px;line-height:50px;font-size:1.3em;background:#${game2048Board[r][c]? 'ffd700':'333'};color:#222;border-radius:6px;">${game2048Board[r][c]||''}</div>`;
+            html += `</div>
+                <p>Use arrow keys to move.</p>
+                <button onclick="showGame('game2048')">Restart</button>`;
+            document.getElementById('gameArea').innerHTML = html;
+        }
+        function handle2048Key(e) {
+            if (!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) return;
+            let moved = false;
+            for (let i=0;i<4;i++) {
+                let row = [];
+                for (let j=0;j<4;j++) {
+                    let val = e.key==='ArrowLeft'||e.key==='ArrowRight' ? game2048Board[i][j] : game2048Board[j][i];
+                    row.push(val);
+                }
+                if (e.key==='ArrowRight'||e.key==='ArrowDown') row.reverse();
+                let filtered = row.filter(x=>x);
+                for (let j=0;j<filtered.length-1;j++) {
+                    if (filtered[j]===filtered[j+1]) {
+                        filtered[j]*=2;
+                        game2048Score+=filtered[j];
+                        filtered[j+1]=0;
+                    }
+                }
+                filtered = filtered.filter(x=>x);
+                while (filtered.length<4) filtered.push(0);
+                if (e.key==='ArrowRight'||e.key==='ArrowDown') filtered.reverse();
+                for (let j=0;j<4;j++) {
+                    let val = e.key==='ArrowLeft'||e.key==='ArrowRight' ? game2048Board[i][j] : game2048Board[j][i];
+                    if (val!==filtered[j]) moved=true;
+                    if (e.key==='ArrowLeft'||e.key==='ArrowRight') game2048Board[i][j]=filtered[j];
+                    else game2048Board[j][i]=filtered[j];
+                }
+            }
+            if (moved) add2048Tile();
+            render2048();
+        }
+
+        // SNAKE (simple version)
+        let snake, snakeDir, snakeFood, snakeInterval, snakeOver;
+        function showSnake() {
+            clearGameArea();
+            snake = [[5,5],[5,4],[5,3]];
+            snakeDir = [0,1];
+            snakeFood = [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
+            snakeOver = false;
+            renderSnake();
+            document.onkeydown = handleSnakeKey;
+            clearInterval(snakeInterval);
+            snakeInterval = setInterval(moveSnake, 200);
+        }
+        function renderSnake() {
+            let html = `<h2>Snake</h2>
+                <div style="display:grid;grid-template-columns:repeat(10,20px);gap:2px;justify-content:center;">`;
+            for (let r=0;r<10;r++) for (let c=0;c<10;c++) {
+                let isSnake = snake.some(([sr,sc])=>sr===r&&sc===c);
+                let isFood = snakeFood[0]===r&&snakeFood[1]===c;
+                html += `<div style="width:20px;height:20px;background:${isSnake?'#4caf50':isFood?'#f44336':'#222'};border-radius:4px;"></div>`;
+            }
+            html += `</div>
+                <p>${snakeOver?'Game Over!':'Use arrow keys to move.'}</p>
+                <button onclick="showGame('snake')">Restart</button>`;
+            document.getElementById('gameArea').innerHTML = html;
+        }
+        function handleSnakeKey(e) {
+            if (snakeOver) return;
+            if (e.key==='ArrowUp' && snakeDir[0]!==1) snakeDir=[-1,0];
+            else if (e.key==='ArrowDown' && snakeDir[0]!==-1) snakeDir=[1,0];
+            else if (e.key==='ArrowLeft' && snakeDir[1]!==1) snakeDir=[0,-1];
+            else if (e.key==='ArrowRight' && snakeDir[1]!==-1) snakeDir=[0,1];
+        }
+        function moveSnake() {
+            if (snakeOver) return;
+            let head = [snake[0][0]+snakeDir[0], snake[0][1]+snakeDir[1]];
+            if (head[0]<0||head[0]>9||head[1]<0||head[1]>9||snake.some(([r,c])=>r===head[0]&&c===head[1])) {
+                snakeOver = true;
+                clearInterval(snakeInterval);
+                renderSnake();
+                return;
+            }
+            snake.unshift(head);
+            if (head[0]===snakeFood[0]&&head[1]===snakeFood[1]) {
+                snakeFood = [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
+            } else {
+                snake.pop();
+            }
+            renderSnake();
+        }
+
+        // Main game switcher
+        function showGame(game) {
+            document.onkeydown = null;
+            clearInterval(snakeInterval);
+            switch(game) {
+                case 'guess': showGuessGame(); break;
+                case 'tictactoe': showTicTacToe(); break;
+                case 'rps': showRPS(); break;
+                case 'memory': showMemory(); break;
+                case 'cointoss': showCoinToss(); break;
+                case 'mathquiz': showMathQuiz(); break;
+                case 'scramble': showScramble(); break;
+                case 'reaction': showReaction(); break;
+                case 'colorguess': showColorGuess(); break;
+                case 'hangman': showHangman(); break;
+                case 'game2048': show2048(); break;
+                case 'snake': showSnake(); break;
+            }
+        }
+    </script>
+</body>
+</html>
